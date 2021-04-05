@@ -1,11 +1,19 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Post-Integration: Prerelease Action'
+description: 'Prerelease action for post-integration'
+author: 'sepulsa'
 inputs:
-  milliseconds: # change this
+  branch:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Branch name, must contain JIRA issue key'
+  push:
+    required: true
+    description: 'Push tags if true'
+    default: 'true'
+outputs:
+  key:
+    description: 'JIRA issue key'
+  tag:
+    description: 'Prerelease tag'
 runs:
   using: 'node12'
   main: 'dist/index.js'
