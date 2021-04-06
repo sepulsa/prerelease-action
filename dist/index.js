@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 function findKey(string) {
     const re = /[a-zA-Z0-9]+-[0-9]+/;
     const match = re.exec(string);
-    return match ? match[0] : undefined;
+    return match ? match[0].toLowerCase() : undefined;
 }
 exports.default = findKey;
 
