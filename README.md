@@ -4,7 +4,7 @@ This action output JIRA issue key and prerelease tag based on Pull Request branc
 
 ## Inputs
 |Input|Required|Default|Description|
-|---|---|---|---|
+|---|:---:|---|---|
 |`branch`|✅| |Branch name, must contain JIRA issue key|
 |`push`|✅|`true`|Push tags if `true`|
 
