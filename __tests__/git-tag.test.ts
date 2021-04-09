@@ -1,19 +1,26 @@
-import {execSync} from 'child_process'
+import {exec, ExecOptions} from '@actions/exec'
 import gitTag from '../src/git-tag'
 
-afterAll(() => {
-  execSync('git tag --list | xargs git tag --delete')
-})
+jest.mock('@actions/exec')
 
 test('No previous tag', async () => {
   expect(await gitTag()).toEqual('1.1.0-rc.0')
 })
 
 test('Increment semver', async () => {
-  execSync('git tag 1.0.0')
-  execSync('git tag 1.1.0-rc.0')
-  execSync('git tag 1.1.0')
-  execSync('git tag 1.2.0-rc.0')
-  execSync('git tag JIRA-999')
+  const mockedExec = exec as jest.Mock<Promise<number>>
+  mockedExec.mockImplementation(
+    async (
+      commandLine: string,
+      args?: string[],
+      options?: ExecOptions
+    ): Promise<number> => {
+      if (options?.listeners?.stdout) {
+        options.listeners.stdout(Buffer.from('1.2.0-rc.0'))
+      }
+      return 1
+    }
+  )
+
   expect(await gitTag()).toEqual('1.3.0-rc.0')
 })

@@ -11,7 +11,7 @@ export default async function gitTag(): Promise<string> {
       }
     }
   }
-  await exec('git', ['config', 'versionsort.suffix', '-'], options)
+  await exec('git', ['config', 'versionsort.suffix', '-'])
   await exec('git', ['tag', '--list', '--sort', 'v:refname', '*.*.*'], options)
 
   const semver = new SemVer(sort(output.trim().split('\n')).pop() || '1.0.0')
