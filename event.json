@@ -1,0 +1,10 @@
+{
+    "action": "closed",
+    "number": 2,
+    "pull_request": {
+        "head": {
+            "ref": "trans-10"
+        },
+        "merged": true
+    }
+}
