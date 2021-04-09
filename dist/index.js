@@ -47,8 +47,8 @@ function gitTag() {
         };
         yield exec_1.exec('git', ['config', 'versionsort.suffix', '-'], options);
         yield exec_1.exec('git', ['tag', '--list', '--sort', 'v:refname', '*.*.*'], options);
-        const semver = new semver_1.SemVer(semver_1.sort(output.trim().split('\n')).pop() || '0.1.0');
-        const inc = semver.inc('prepatch', 'rc');
+        const semver = new semver_1.SemVer(semver_1.sort(output.trim().split('\n')).pop() || '1.0.0');
+        const inc = semver.inc('preminor', 'rc');
         return inc.version;
     });
 }
