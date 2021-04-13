@@ -38,18 +38,21 @@ const semver_1 = __webpack_require__(1383);
 function gitTag() {
     return __awaiter(this, void 0, void 0, function* () {
         let output = '';
-        const options = {
+        yield exec_1.exec('git', ['config', 'versionsort.suffix', '-']);
+        yield exec_1.exec('git', ['tag', '--list', '--sort', 'v:refname', '[0-9]*.[0-9]*.[0-9]*'], {
             listeners: {
                 stdout: (data) => {
                     output += data.toString();
                 }
             }
-        };
-        yield exec_1.exec('git', ['config', 'versionsort.suffix', '-'], options);
-        yield exec_1.exec('git', ['tag', '--list', '--sort', 'v:refname', '*.*.*'], options);
-        const semver = new semver_1.SemVer(semver_1.sort(output.trim().split('\n')).pop() || '1.0.0');
-        const inc = semver.inc('preminor', 'rc');
-        return inc.version;
+        });
+        // Filter invalid semver tag
+        const tags = output
+            .trim()
+            .split('\n')
+            .filter(tag => semver_1.valid(tag));
+        const semver = new semver_1.SemVer(semver_1.sort(tags).pop() || '1.0.0');
+        return semver.inc('preminor', 'rc').version;
     });
 }
 exports.default = gitTag;

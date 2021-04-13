@@ -16,7 +16,7 @@ test('Increment semver', async () => {
       options?: ExecOptions
     ): Promise<number> => {
       if (options?.listeners?.stdout) {
-        options.listeners.stdout(Buffer.from('1.2.0-rc.0'))
+        options.listeners.stdout(Buffer.from('1.2.0-rc.0\nV1.3.0-rc.0'))
       }
       return 1
     }
