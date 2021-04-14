@@ -17,7 +17,7 @@ This action output JIRA issue key and prerelease tag based on Pull Request branc
 ## Example usage
 
 ```yaml
-uses: sepulsa/prerelease-action@1
+uses: sepulsa/prerelease-action@main
 with:
   branch: ${{ github.head_ref }}
 ```
